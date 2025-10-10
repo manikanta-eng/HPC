@@ -48,6 +48,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
@@ -58,6 +59,14 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
         }
 
         .hero {
@@ -122,21 +131,160 @@
             line-height: 1.6;
         }
 
-        .courses {
-            margin-top: 3rem;
+        .file-upload-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            background: rgba(102, 126, 234, 0.05);
+            border-color: #764ba2;
+        }
+
+        .upload-area.dragover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #764ba2;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 2rem;
+        }
+
+        .file-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .file-item:hover {
+            transform: translateX(5px);
+            background: #e9ecef;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .file-icon {
+            font-size: 2rem;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .file-size {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #c53030);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78, #2f855a);
         }
 
         .section-title {
             color: white;
             font-size: 2rem;
             margin-bottom: 2rem;
-            text-align: center;
+        }
+
+        .content-viewer {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .viewer-content {
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            line-height: 1.6;
+        }
+
+        .viewer-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 1rem 0;
         }
 
         .course-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            margin-top: 2rem;
         }
 
         .course-card {
@@ -145,6 +293,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s;
+            cursor: pointer;
         }
 
         .course-card:hover {
@@ -196,26 +345,52 @@
             transition: width 0.3s;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-top: 1rem;
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            width: 90%;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #333;
         }
 
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                gap: 1rem;
+                font-size: 0.9rem;
             }
             
             .hero h1 {
@@ -225,6 +400,12 @@
             .hero p {
                 font-size: 1rem;
             }
+
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -232,53 +413,53 @@
     <nav class="navbar">
         <div class="logo">SRU LMS</div>
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#courses">Courses</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#profile">Profile</a></li>
+            <li><a onclick="showPage('home')">Home</a></li>
+            <li><a onclick="showPage('courses')">Courses</a></li>
+            <li><a onclick="showPage('files')">My Files</a></li>
+            <li><a onclick="showPage('assignments')">Assignments</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <div class="hero">
-            <h1>Welcome to SRU Learning Management System</h1>
-            <p>Empowering Education Through Technology</p>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Welcome to SRU Learning Management System</h1>
+                <p>Empowering Education Through Technology</p>
+            </div>
+
+            <div class="dashboard">
+                <div class="card" onclick="showPage('courses')">
+                    <div class="card-icon">📚</div>
+                    <h3>My Courses</h3>
+                    <p>Access all your enrolled courses and continue learning at your own pace.</p>
+                </div>
+
+                <div class="card" onclick="showPage('files')">
+                    <div class="card-icon">📁</div>
+                    <h3>My Files</h3>
+                    <p>Upload, manage, and access your course materials and documents.</p>
+                </div>
+
+                <div class="card" onclick="showPage('assignments')">
+                    <div class="card-icon">📝</div>
+                    <h3>Assignments</h3>
+                    <p>Submit assignments and check deadlines for all your courses.</p>
+                </div>
+
+                <div class="card" onclick="alert('Discussion forum coming soon!')">
+                    <div class="card-icon">💬</div>
+                    <h3>Discussion</h3>
+                    <p>Engage with peers and instructors in course discussions.</p>
+                </div>
+            </div>
         </div>
 
-        <div class="dashboard" id="dashboard">
-            <div class="card">
-                <div class="card-icon">📚</div>
-                <h3>My Courses</h3>
-                <p>Access all your enrolled courses and continue learning at your own pace.</p>
-                <button class="btn" onclick="showMessage('Courses')">View Courses</button>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Progress</h3>
-                <p>Track your learning progress and achievements across all courses.</p>
-                <button class="btn" onclick="showMessage('Progress')">View Progress</button>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">📝</div>
-                <h3>Assignments</h3>
-                <p>Submit assignments and check deadlines for all your courses.</p>
-                <button class="btn" onclick="showMessage('Assignments')">View Assignments</button>
-            </div>
-
-            <div class="card">
-                <div class="card-icon">💬</div>
-                <h3>Discussion</h3>
-                <p>Engage with peers and instructors in course discussions.</p>
-                <button class="btn" onclick="showMessage('Discussion')">Join Discussion</button>
-            </div>
-        </div>
-
-        <div class="courses" id="courses">
-            <h2 class="section-title">Featured Courses</h2>
+        <!-- Courses Page -->
+        <div id="courses" class="page">
+            <h2 class="section-title">My Courses</h2>
             <div class="course-grid">
-                <div class="course-card">
+                <div class="course-card" onclick="openCourse('Web Development')">
                     <div class="course-image">💻</div>
                     <div class="course-content">
                         <h3 class="course-title">Web Development Fundamentals</h3>
@@ -290,11 +471,10 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 65%"></div>
                         </div>
-                        <button class="btn" onclick="showMessage('Web Development')">Continue Learning</button>
                     </div>
                 </div>
 
-                <div class="course-card">
+                <div class="course-card" onclick="openCourse('Data Science')">
                     <div class="course-image">📊</div>
                     <div class="course-content">
                         <h3 class="course-title">Data Science Essentials</h3>
@@ -306,11 +486,10 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 40%"></div>
                         </div>
-                        <button class="btn" onclick="showMessage('Data Science')">Continue Learning</button>
                     </div>
                 </div>
 
-                <div class="course-card">
+                <div class="course-card" onclick="openCourse('UI/UX Design')">
                     <div class="course-image">🎨</div>
                     <div class="course-content">
                         <h3 class="course-title">UI/UX Design Principles</h3>
@@ -322,27 +501,257 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 80%"></div>
                         </div>
-                        <button class="btn" onclick="showMessage('UI/UX Design')">Continue Learning</button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files Page -->
+        <div id="files" class="page">
+            <h2 class="section-title">My Files</h2>
+            
+            <div class="file-upload-section">
+                <h3 style="margin-bottom: 1rem; color: #333;">Upload Files</h3>
+                <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📤</div>
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">Click to upload or drag and drop</h3>
+                    <p style="color: #666;">Support for documents, images, PDFs, and more</p>
+                </div>
+                <input type="file" id="fileInput" class="file-input" multiple>
+            </div>
+
+            <div class="file-upload-section">
+                <h3 style="margin-bottom: 1rem; color: #333;">Your Files</h3>
+                <div id="fileList" class="file-list">
+                    <p style="color: #666; text-align: center;">No files uploaded yet. Upload your first file above!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assignments Page -->
+        <div id="assignments" class="page">
+            <h2 class="section-title">Assignments</h2>
+            
+            <div class="file-upload-section">
+                <h3 style="margin-bottom: 1rem; color: #333;">Submit Assignment</h3>
+                <div class="upload-area" onclick="document.getElementById('assignmentInput').click()">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📝</div>
+                    <h3 style="color: #667eea; margin-bottom: 0.5rem;">Upload your assignment</h3>
+                    <p style="color: #666;">Accepted formats: PDF, DOC, DOCX, TXT</p>
+                </div>
+                <input type="file" id="assignmentInput" class="file-input" accept=".pdf,.doc,.docx,.txt">
+            </div>
+
+            <div class="course-grid" style="margin-top: 2rem;">
+                <div class="card">
+                    <div class="card-icon">📝</div>
+                    <h3>Web Dev Assignment 1</h3>
+                    <p>Create a responsive landing page</p>
+                    <p style="color: #f56565; margin-top: 0.5rem; font-weight: 600;">Due: Oct 15, 2025</p>
+                    <button class="btn" style="margin-top: 1rem;" onclick="alert('Assignment submission would open here')">Submit</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Data Analysis Project</h3>
+                    <p>Analyze the provided dataset</p>
+                    <p style="color: #48bb78; margin-top: 0.5rem; font-weight: 600;">Due: Oct 20, 2025</p>
+                    <button class="btn" style="margin-top: 1rem;" onclick="alert('Assignment submission would open here')">Submit</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- File Viewer Modal -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
     <script>
-        function showMessage(section) {
-            alert(`Opening ${section} section. This is a demo - in a full LMS, this would navigate to the ${section} page.`);
+        const uploadedFiles = [];
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Add smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+        function openCourse(courseName) {
+            alert(`Opening ${courseName} course. In a full LMS, this would show course materials, videos, and resources.`);
+        }
+
+        // File upload handling
+        const fileInput = document.getElementById('fileInput');
+        const uploadArea = document.getElementById('uploadArea');
+        const fileList = document.getElementById('fileList');
+
+        fileInput.addEventListener('change', handleFiles);
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles({ target: { files } });
+        });
+
+        function handleFiles(e) {
+            const files = Array.from(e.target.files);
+            files.forEach(file => {
+                uploadedFiles.push(file);
+                addFileToList(file);
             });
+        }
+
+        function addFileToList(file) {
+            const fileIcon = getFileIcon(file.type);
+            const fileSize = formatFileSize(file.size);
+            
+            if (fileList.querySelector('p')) {
+                fileList.innerHTML = '';
+            }
+
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <div class="file-icon">${fileIcon}</div>
+                    <div class="file-details">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${fileSize} • ${new Date().toLocaleDateString()}</div>
+                    </div>
+                </div>
+                <div class="file-actions">
+                    <button class="btn btn-small btn-success" onclick="viewFile('${file.name}')">View</button>
+                    <button class="btn btn-small" onclick="downloadFile('${file.name}')">Download</button>
+                    <button class="btn btn-small btn-danger" onclick="deleteFile('${file.name}')">Delete</button>
+                </div>
+            `;
+            fileList.appendChild(fileItem);
+        }
+
+        function getFileIcon(type) {
+            if (type.includes('image')) return '🖼️';
+            if (type.includes('pdf')) return '📄';
+            if (type.includes('text')) return '📝';
+            if (type.includes('video')) return '🎥';
+            if (type.includes('audio')) return '🎵';
+            return '📁';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function viewFile(fileName) {
+            const file = uploadedFiles.find(f => f.name === fileName);
+            if (!file) return;
+
+            const modal = document.getElementById('fileModal');
+            const modalContent = document.getElementById('modalContent');
+            modal.classList.add('active');
+
+            if (file.type.includes('image')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    modalContent.innerHTML = `
+                        <div class="viewer-header">
+                            <h3>${file.name}</h3>
+                        </div>
+                        <img src="${e.target.result}" alt="${file.name}">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type.includes('text')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    modalContent.innerHTML = `
+                        <div class="viewer-header">
+                            <h3>${file.name}</h3>
+                        </div>
+                        <div class="viewer-content">${e.target.result}</div>
+                    `;
+                };
+                reader.readAsText(file);
+            } else {
+                modalContent.innerHTML = `
+                    <div class="viewer-header">
+                        <h3>${file.name}</h3>
+                    </div>
+                    <p style="text-align: center; padding: 2rem;">Preview not available for this file type. Click download to view the file.</p>
+                    <button class="btn" onclick="downloadFile('${fileName}')" style="display: block; margin: 0 auto;">Download File</button>
+                `;
+            }
+        }
+
+        function downloadFile(fileName) {
+            const file = uploadedFiles.find(f => f.name === fileName);
+            if (!file) return;
+
+            const url = URL.createObjectURL(file);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function deleteFile(fileName) {
+            if (confirm(`Are you sure you want to delete ${fileName}?`)) {
+                const index = uploadedFiles.findIndex(f => f.name === fileName);
+                if (index > -1) {
+                    uploadedFiles.splice(index, 1);
+                    renderFileList();
+                }
+            }
+        }
+
+        function renderFileList() {
+            fileList.innerHTML = '';
+            if (uploadedFiles.length === 0) {
+                fileList.innerHTML = '<p style="color: #666; text-align: center;">No files uploaded yet. Upload your first file above!</p>';
+            } else {
+                uploadedFiles.forEach(file => addFileToList(file));
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('fileModal').classList.remove('active');
+        }
+
+        // Assignment file upload
+        document.getElementById('assignmentInput').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                alert(`Assignment "${file.name}" uploaded successfully! In a full LMS, this would be submitted to your instructor.`);
+            }
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('fileModal').addEventListener('click', (e) => {
+            if (e.target.id === 'fileModal') {
+                closeModal();
+            }
         });
     </script>
 </body>
