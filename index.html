@@ -76,28 +76,58 @@ const FoodOrderingApp = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50">
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #FFF7ED, #FEE2E2)' }}>
       {/* Header */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="text-4xl">🍽️</div>
+      <header style={{ backgroundColor: 'white', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ fontSize: '36px' }}>🍽️</div>
               <div>
-                <h1 className="text-2xl font-bold text-orange-600">FoodHub</h1>
-                <p className="text-xs text-gray-500 flex items-center gap-1">
+                <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#EA580C', margin: 0 }}>FoodHub</h1>
+                <p style={{ fontSize: '12px', color: '#6B7280', margin: 0, display: 'flex', alignItems: 'center', gap: '4px' }}>
                   <MapPin size={12} /> Delivering to your location
                 </p>
               </div>
             </div>
             <button
               onClick={() => setShowCart(!showCart)}
-              className="relative bg-orange-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-orange-700 transition flex items-center gap-2 shadow-lg"
+              style={{ 
+                position: 'relative',
+                backgroundColor: '#EA580C', 
+                color: 'white', 
+                padding: '12px 24px', 
+                borderRadius: '50px', 
+                fontWeight: 'bold', 
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                transition: 'all 0.3s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#C2410C'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#EA580C'}
             >
               <ShoppingCart size={20} />
               Cart
               {getTotalItems() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-sm font-bold">
+                <span style={{
+                  position: 'absolute',
+                  top: '-8px',
+                  right: '-8px',
+                  backgroundColor: '#EF4444',
+                  color: 'white',
+                  borderRadius: '50%',
+                  width: '28px',
+                  height: '28px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '14px',
+                  fontWeight: 'bold'
+                }}>
                   {getTotalItems()}
                 </span>
               )}
@@ -105,32 +135,48 @@ const FoodOrderingApp = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="mt-4 relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <div style={{ marginTop: '16px', position: 'relative' }}>
+            <Search style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#9CA3AF' }} size={20} />
             <input
               type="text"
               placeholder="Search for food..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500"
+              style={{
+                width: '100%',
+                paddingLeft: '40px',
+                paddingRight: '16px',
+                paddingTop: '12px',
+                paddingBottom: '12px',
+                border: '1px solid #D1D5DB',
+                borderRadius: '50px',
+                fontSize: '16px',
+                outline: 'none'
+              }}
             />
           </div>
         </div>
       </header>
 
       {/* Categories */}
-      <div className="bg-white shadow-sm sticky top-24 z-40">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+      <div style={{ backgroundColor: 'white', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'sticky', top: '160px', zIndex: 40 }}>
+        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '16px' }}>
+          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px' }}>
             {categories.map(category => (
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full whitespace-nowrap font-medium transition ${
-                  selectedCategory === category
-                    ? 'bg-orange-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                style={{
+                  padding: '8px 24px',
+                  borderRadius: '50px',
+                  whiteSpace: 'nowrap',
+                  fontWeight: '500',
+                  border: 'none',
+                  cursor: 'pointer',
+                  backgroundColor: selectedCategory === category ? '#EA580C' : '#F3F4F6',
+                  color: selectedCategory === category ? 'white' : '#374151',
+                  transition: 'all 0.3s'
+                }}
               >
                 {category}
               </button>
@@ -140,31 +186,69 @@ const FoodOrderingApp = () => {
       </div>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '32px 16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '24px' }}>
           {filteredItems.map(item => (
-            <div key={item.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1">
-              <div className="relative">
-                <div className="text-8xl flex items-center justify-center h-48 bg-gradient-to-br from-orange-100 to-red-100">
+            <div key={item.id} style={{ 
+              backgroundColor: 'white', 
+              borderRadius: '16px', 
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)', 
+              overflow: 'hidden',
+              transition: 'all 0.3s'
+            }}>
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  fontSize: '80px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '192px',
+                  background: 'linear-gradient(to bottom right, #FFEDD5, #FEE2E2)'
+                }}>
                   {item.image}
                 </div>
-                <div className="absolute top-3 right-3 bg-white px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
-                  <Star size={14} className="text-yellow-500 fill-current" />
-                  <span className="text-sm font-semibold">{item.rating}</span>
+                <div style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  backgroundColor: 'white',
+                  padding: '4px 12px',
+                  borderRadius: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                }}>
+                  <Star size={14} style={{ color: '#EAB308', fill: '#EAB308' }} />
+                  <span style={{ fontSize: '14px', fontWeight: '600' }}>{item.rating}</span>
                 </div>
               </div>
-              <div className="p-4">
-                <h3 className="text-xl font-bold text-gray-800 mb-1">{item.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{item.description}</p>
-                <div className="flex items-center gap-2 text-gray-500 text-sm mb-3">
+              <div style={{ padding: '16px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#1F2937', marginBottom: '4px' }}>{item.name}</h3>
+                <p style={{ fontSize: '14px', color: '#6B7280', marginBottom: '8px' }}>{item.description}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#6B7280', fontSize: '14px', marginBottom: '12px' }}>
                   <Clock size={14} />
                   <span>{item.time}</span>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-orange-600">${item.price}</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#EA580C' }}>${item.price}</span>
                   <button
                     onClick={() => addToCart(item)}
-                    className="bg-orange-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-orange-700 transition flex items-center gap-1"
+                    style={{
+                      backgroundColor: '#EA580C',
+                      color: 'white',
+                      padding: '8px 16px',
+                      borderRadius: '50px',
+                      fontWeight: '600',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      transition: 'all 0.3s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#C2410C'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#EA580C'}
                   >
                     <Plus size={18} />
                     Add
@@ -176,71 +260,123 @@ const FoodOrderingApp = () => {
         </div>
 
         {filteredItems.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🔍</div>
-            <p className="text-xl text-gray-600">No items found</p>
+          <div style={{ textAlign: 'center', padding: '64px 0' }}>
+            <div style={{ fontSize: '64px', marginBottom: '16px' }}>🔍</div>
+            <p style={{ fontSize: '20px', color: '#6B7280' }}>No items found</p>
           </div>
         )}
       </main>
 
       {/* Cart Sidebar */}
       {showCart && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50" onClick={() => setShowCart(false)}>
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          zIndex: 50
+        }} onClick={() => setShowCart(false)}>
           <div
-            className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl overflow-y-auto"
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              height: '100%',
+              width: '100%',
+              maxWidth: '448px',
+              backgroundColor: 'white',
+              boxShadow: '-4px 0 16px rgba(0,0,0,0.2)',
+              overflowY: 'auto'
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">Your Cart</h2>
+            <div style={{ padding: '24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1F2937', margin: 0 }}>Your Cart</h2>
                 <button
                   onClick={() => setShowCart(false)}
-                  className="text-gray-500 hover:text-gray-700 text-2xl"
+                  style={{
+                    color: '#6B7280',
+                    fontSize: '32px',
+                    border: 'none',
+                    background: 'none',
+                    cursor: 'pointer',
+                    padding: 0
+                  }}
                 >
                   ×
                 </button>
               </div>
 
               {cart.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="text-6xl mb-4">🛒</div>
-                  <p className="text-xl text-gray-600">Your cart is empty</p>
+                <div style={{ textAlign: 'center', padding: '64px 0' }}>
+                  <div style={{ fontSize: '64px', marginBottom: '16px' }}>🛒</div>
+                  <p style={{ fontSize: '20px', color: '#6B7280' }}>Your cart is empty</p>
                 </div>
               ) : (
                 <>
-                  <div className="space-y-4 mb-6">
+                  <div style={{ marginBottom: '24px' }}>
                     {cart.map(item => (
-                      <div key={item.id} className="bg-gray-50 rounded-xl p-4">
-                        <div className="flex items-start justify-between mb-2">
-                          <div className="flex gap-3">
-                            <div className="text-3xl">{item.image}</div>
+                      <div key={item.id} style={{
+                        backgroundColor: '#F9FAFB',
+                        borderRadius: '12px',
+                        padding: '16px',
+                        marginBottom: '16px'
+                      }}>
+                        <div style={{ display: 'flex', alignItems: 'start', justifyContent: 'space-between', marginBottom: '8px' }}>
+                          <div style={{ display: 'flex', gap: '12px' }}>
+                            <div style={{ fontSize: '32px' }}>{item.image}</div>
                             <div>
-                              <h3 className="font-semibold text-gray-800">{item.name}</h3>
-                              <p className="text-orange-600 font-bold">${item.price}</p>
+                              <h3 style={{ fontWeight: '600', color: '#1F2937', margin: '0 0 4px 0' }}>{item.name}</h3>
+                              <p style={{ color: '#EA580C', fontWeight: 'bold', margin: 0 }}>${item.price}</p>
                             </div>
                           </div>
                           <button
                             onClick={() => removeFromCart(item.id)}
-                            className="text-red-500 hover:text-red-700"
+                            style={{
+                              color: '#EF4444',
+                              border: 'none',
+                              background: 'none',
+                              cursor: 'pointer',
+                              padding: 0
+                            }}
                           >
                             <Trash2 size={20} />
                           </button>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                           <button
                             onClick={() => updateQuantity(item.id, -1)}
-                            className="bg-gray-200 hover:bg-gray-300 rounded-full p-1"
+                            style={{
+                              backgroundColor: '#E5E7EB',
+                              borderRadius: '50%',
+                              padding: '4px',
+                              border: 'none',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
                           >
                             <Minus size={16} />
                           </button>
-                          <span className="font-semibold text-lg w-8 text-center">{item.quantity}</span>
+                          <span style={{ fontWeight: '600', fontSize: '18px', width: '32px', textAlign: 'center' }}>{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, 1)}
-                            className="bg-orange-600 hover:bg-orange-700 text-white rounded-full p-1"
+                            style={{
+                              backgroundColor: '#EA580C',
+                              color: 'white',
+                              borderRadius: '50%',
+                              padding: '4px',
+                              border: 'none',
+                              cursor: 'pointer',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}
                           >
                             <Plus size={16} />
                           </button>
-                          <span className="ml-auto font-bold text-gray-800">
+                          <span style={{ marginLeft: 'auto', fontWeight: 'bold', color: '#1F2937' }}>
                             ${(item.price * item.quantity).toFixed(2)}
                           </span>
                         </div>
@@ -248,16 +384,24 @@ const FoodOrderingApp = () => {
                     ))}
                   </div>
 
-                  <div className="border-t pt-4 mb-6">
-                    <div className="flex justify-between text-lg mb-2">
-                      <span className="text-gray-600">Subtotal:</span>
-                      <span className="font-semibold">${getTotalPrice()}</span>
+                  <div style={{ borderTop: '1px solid #E5E7EB', paddingTop: '16px', marginBottom: '24px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', marginBottom: '8px' }}>
+                      <span style={{ color: '#6B7280' }}>Subtotal:</span>
+                      <span style={{ fontWeight: '600' }}>${getTotalPrice()}</span>
                     </div>
-                    <div className="flex justify-between text-lg mb-2">
-                      <span className="text-gray-600">Delivery Fee:</span>
-                      <span className="font-semibold">$2.99</span>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '18px', marginBottom: '8px' }}>
+                      <span style={{ color: '#6B7280' }}>Delivery Fee:</span>
+                      <span style={{ fontWeight: '600' }}>$2.99</span>
                     </div>
-                    <div className="flex justify-between text-xl font-bold text-orange-600 pt-2 border-t">
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '20px',
+                      fontWeight: 'bold',
+                      color: '#EA580C',
+                      paddingTop: '8px',
+                      borderTop: '1px solid #E5E7EB'
+                    }}>
                       <span>Total:</span>
                       <span>${(parseFloat(getTotalPrice()) + 2.99).toFixed(2)}</span>
                     </div>
@@ -265,7 +409,21 @@ const FoodOrderingApp = () => {
 
                   <button
                     onClick={placeOrder}
-                    className="w-full bg-orange-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-orange-700 transition shadow-lg"
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#EA580C',
+                      color: 'white',
+                      padding: '16px',
+                      borderRadius: '12px',
+                      fontWeight: 'bold',
+                      fontSize: '18px',
+                      border: 'none',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                      transition: 'all 0.3s'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#C2410C'}
+                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#EA580C'}
                   >
                     Place Order
                   </button>
@@ -278,12 +436,28 @@ const FoodOrderingApp = () => {
 
       {/* Order Success Modal */}
       {orderPlaced && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-md mx-4 text-center shadow-2xl">
-            <div className="text-6xl mb-4">✅</div>
-            <h2 className="text-3xl font-bold text-green-600 mb-2">Order Placed!</h2>
-            <p className="text-gray-600 text-lg">Your delicious food is on its way!</p>
-            <p className="text-gray-500 mt-2">Estimated delivery: 30-45 minutes</p>
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          backgroundColor: 'rgba(0,0,0,0.5)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 50
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            borderRadius: '16px',
+            padding: '32px',
+            maxWidth: '448px',
+            margin: '16px',
+            textAlign: 'center',
+            boxShadow: '0 20px 25px rgba(0,0,0,0.15)'
+          }}>
+            <div style={{ fontSize: '64px', marginBottom: '16px' }}>✅</div>
+            <h2 style={{ fontSize: '32px', fontWeight: 'bold', color: '#10B981', marginBottom: '8px' }}>Order Placed!</h2>
+            <p style={{ color: '#6B7280', fontSize: '18px' }}>Your delicious food is on its way!</p>
+            <p style={{ color: '#9CA3AF', marginTop: '8px' }}>Estimated delivery: 30-45 minutes</p>
           </div>
         </div>
       )}
